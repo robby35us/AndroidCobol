@@ -1,4 +1,4 @@
-package com.bignerdranch.android.cobalt;
+package com.bignerdranch.android.cobolt;
 
 import org.junit.Test;
 
