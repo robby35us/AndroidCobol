@@ -13,8 +13,8 @@ public class ThompsonsConstruction {
         List<FiniteAutomaton> simpleAutomata = new LinkedList<>();
         for (RE re : patterns) {
             simpleAutomata.add(
-                    new NFABuilder().buildSimpleNFA(re));
+                    new TConstructionUtil().buildSimpleNFA(re));
         }
-        return new NFABuilder().buildOrNFA(simpleAutomata);
+        return new TConstructionUtil().applyOrToNFA(simpleAutomata);
     }
 }

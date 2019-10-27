@@ -7,12 +7,12 @@ import com.bignerdranch.android.scanner.model.RE;
 
 import java.util.List;
 
-public class NFABuilder {
+public class TConstructionUtil {
     private State startingState;
     private State currentState;
     private FiniteAutomaton nfa;
 
-    public NFABuilder() {
+    public TConstructionUtil() {
         startingState = new State(false);
         currentState = startingState;
         nfa = new FiniteAutomaton(startingState);
@@ -36,7 +36,7 @@ public class NFABuilder {
         return nfa;
     }
 
-    public FiniteAutomaton buildOrNFA(List<FiniteAutomaton> nfas) {
+    public FiniteAutomaton applyOrToNFA(List<FiniteAutomaton> nfas) {
         State resultStartingState = new State(false);
         State resultAcceptingState = new State(true);
 
@@ -56,8 +56,8 @@ public class NFABuilder {
         return resultFA;
     }
 
-    public FiniteAutomaton buildAndNFA(FiniteAutomaton nfa1,
-                                       FiniteAutomaton nfa2) {
+    public FiniteAutomaton applyAndToNFA(FiniteAutomaton nfa1,
+                                         FiniteAutomaton nfa2) {
         return null;
     }
 
