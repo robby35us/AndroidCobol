@@ -8,8 +8,6 @@ public class Transition {
     private State outState;
 
     public Transition(char cc, State in, State out) {
-        //System.out.println("Transition");
-
         character = cc;
         inState = in;
         outState = out;

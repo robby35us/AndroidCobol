@@ -9,16 +9,14 @@ import java.util.Map;
 public class FiniteAutomaton {
 
     private Map<State, List<Transition>> stateTransitionMap;
-    private char[] characterList;
     private List<Transition> transitions;
     private State startingState;
     private List<State> acceptingStates;
 
-    public FiniteAutomaton (char[] characterList, State startingState) {
+    public FiniteAutomaton (State startingState) {
         //System.out.println("FiniteAutomaton");
 
         this.stateTransitionMap = new HashMap<>();
-        this.characterList = characterList;
         this.transitions = new ArrayList<>();
         this.startingState = startingState;
         this.acceptingStates = new ArrayList<>();
@@ -35,7 +33,6 @@ public class FiniteAutomaton {
     }
 
     public void addTransitions(List<Transition> transitions) {
-        List<Transition> temp;
         for (Transition t : transitions) {
             putState(t.getInState(), t);
             putState(t.getOutState(), null);

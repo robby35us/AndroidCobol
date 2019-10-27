@@ -1,6 +1,5 @@
-package com.bignerdranch.android.scanner;
+package com.bignerdranch.android.scanner.algorithms;
 
-import com.bignerdranch.android.scanner.model.CobolCharacter;
 import com.bignerdranch.android.scanner.model.FA.FiniteAutomaton;
 import com.bignerdranch.android.scanner.model.FA.State;
 import com.bignerdranch.android.scanner.model.FA.Transition;
@@ -16,9 +15,7 @@ public class NFABuilder {
     public NFABuilder() {
         startingState = new State(false);
         currentState = startingState;
-        nfa = new FiniteAutomaton(
-                CobolCharacter.getCobolCharacterList(),
-                startingState);
+        nfa = new FiniteAutomaton(startingState);
     }
 
     public FiniteAutomaton buildSimpleNFA(RE regex) {
@@ -43,9 +40,7 @@ public class NFABuilder {
         State resultStartingState = new State(false);
         State resultAcceptingState = new State(true);
 
-        FiniteAutomaton resultFA
-                = new FiniteAutomaton(CobolCharacter.getCobolCharacterList(),
-                        resultStartingState);
+        FiniteAutomaton resultFA = new FiniteAutomaton(resultStartingState);
 
         for(FiniteAutomaton nfa : nfas) {
             resultFA.addTransition(new Transition('~',

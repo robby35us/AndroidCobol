@@ -7,16 +7,7 @@ public class Configuration {
     private List<State> states;
     private State resultingState;
 
-    public Configuration(State state) {
-        //System.out.println("Configuration");
-
-        states = new ArrayList<>();
-        states.add(state);
-        resultingState = new State(false);
-    }
-
     public Configuration(List<State> states){
-        //System.out.println("Configuration");
 
         this.states = states;
         boolean markAsAccepting = false;
@@ -35,10 +26,6 @@ public class Configuration {
 
     public State getResultingState() {
         return resultingState;
-    }
-
-    public void dropStatesList() {
-        states = null;
     }
 
     @Override
