@@ -53,6 +53,7 @@ public class TConstructionUtil {
             }
             resultFA.addTransitions(nfa.getTransitions());
         }
+        resultFA.updateAcceptingStates();
         return resultFA;
     }
 

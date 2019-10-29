@@ -1,8 +1,11 @@
 package com.bignerdranch.android.scanner.model.FA;
 
 
+import java.util.Set;
+
 public class Transition {
 
+    private Set<Character> chars;
     private char character;
     private State inState;
     private State outState;
@@ -11,6 +14,12 @@ public class Transition {
         character = cc;
         inState = in;
         outState = out;
+    }
+
+    public Transition(Set<Character> chars, State in, State out) {
+        this.chars = chars;
+        this.inState = in;
+        this.outState = out;
     }
 
     public State getInState() {
@@ -23,5 +32,9 @@ public class Transition {
 
     public char getCharacter() {
         return character;
+    }
+
+    public Set<Character> getChars() {
+        return chars;
     }
 }

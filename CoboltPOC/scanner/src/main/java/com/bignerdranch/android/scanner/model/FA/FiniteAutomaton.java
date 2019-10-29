@@ -2,16 +2,18 @@ package com.bignerdranch.android.scanner.model.FA;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class FiniteAutomaton {
 
     private Map<State, List<Transition>> stateTransitionMap;
     private List<Transition> transitions;
     private State startingState;
-    private List<State> acceptingStates;
+    private Set<State> acceptingStates;
 
     public FiniteAutomaton (State startingState) {
         //System.out.println("FiniteAutomaton");
@@ -19,7 +21,7 @@ public class FiniteAutomaton {
         this.stateTransitionMap = new HashMap<>();
         this.transitions = new ArrayList<>();
         this.startingState = startingState;
-        this.acceptingStates = new ArrayList<>();
+        this.acceptingStates = new HashSet<>();
         stateTransitionMap.put(this.startingState, new ArrayList<Transition>());
     }
 
@@ -67,9 +69,20 @@ public class FiniteAutomaton {
         return startingState;
     }
 
-    public List<State> getAcceptingStates() {
+    public Set<State> getAcceptingStates() {
         return acceptingStates;
     }
+
+    public Set<State> getNonAcceptingStates() {
+        Set<State> nonAcceptingStates = new HashSet<>();
+        for(State s: stateTransitionMap.keySet()) {
+            if(!acceptingStates.contains(s)) {
+                nonAcceptingStates.add(s);
+            }
+        }
+        return nonAcceptingStates;
+    }
+
 
     public List<Transition> getTransitions() {
         return transitions;
@@ -121,7 +134,12 @@ public class FiniteAutomaton {
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         for (Transition t: transitions) {
-            stringBuilder.append(t.getCharacter());
+            if(t.getChars() == null)
+                stringBuilder.append(t.getCharacter());
+            else
+                for(Character c : t.getChars()) {
+                    stringBuilder.append(c);
+                }
         }
         return stringBuilder.toString();
     }

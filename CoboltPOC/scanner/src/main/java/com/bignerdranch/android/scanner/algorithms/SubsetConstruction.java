@@ -26,7 +26,10 @@ public class SubsetConstruction {
             workItem = workList.remove(0);
             processConfiguration();
         }
-        return dfa;
+        dfa.updateAcceptingStates();
+        FiniteAutomaton tempResult = dfa;
+        cleanup();
+        return tempResult;
     }
 
     private static void initialize() {
@@ -42,7 +45,17 @@ public class SubsetConstruction {
         configs.add(workList.get(0));
     }
 
+    private static void cleanup() {
+        dfa = null;
+        nfa = null;
+        workList = null;
+        configs = null;
+        workItem = null;
+        newWorkItem = null;
+    }
+
     private static void processConfiguration() {
+        boolean isAcceptingConfiguration = true;
         for(Character c : CobolCharacter.getCobolCharacterList()) {
             newWorkItem = getEClosureOFDeltaOf(c);
             if(newWorkItem == null) {
@@ -50,6 +63,10 @@ public class SubsetConstruction {
             }
             manageTransitions(c);
             updateConfigurationLists();
+            isAcceptingConfiguration = false;
+        }
+        if(isAcceptingConfiguration) {
+            workItem.getResultingState().setAcceptingState(true);
         }
     }
 

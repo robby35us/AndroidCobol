@@ -1,5 +1,6 @@
 package com.bignerdranch.android.scanner;
 
+import com.bignerdranch.android.scanner.algorithms.DFAMinimization;
 import com.bignerdranch.android.scanner.algorithms.SubsetConstruction;
 import com.bignerdranch.android.scanner.algorithms.ThompsonsConstruction;
 import com.bignerdranch.android.scanner.model.FA.FiniteAutomaton;
@@ -21,6 +22,26 @@ public class ScannerGenerator {
     }
 
     public void getKeywordsFromFile( InputStream sourceFile) {
+        populatePatterns(sourceFile);
+
+        // Apply Thompson's Construction
+        FiniteAutomaton nfa = ThompsonsConstruction.apply(patterns);
+        patterns = null;
+        System.out.println(nfa);
+
+
+        // Apply Subset Construction
+        FiniteAutomaton dfa = SubsetConstruction.apply(nfa);
+        nfa = null;
+        System.out.println(dfa);
+
+        // Apply DFAMinimization
+        FiniteAutomaton mdfa = DFAMinimization.apply(dfa);
+        dfa = null;
+        System.out.println(mdfa);
+    }
+
+    private void populatePatterns(InputStream sourceFile) {
         BufferedReader br = null;
         try {
             br = new BufferedReader(new InputStreamReader(sourceFile));
@@ -42,13 +63,5 @@ public class ScannerGenerator {
                 System.out.println("Error while closing stream: " + e);
             }
         }
-        // Apply Thompson's Construction
-        FiniteAutomaton nfa = ThompsonsConstruction.apply(patterns);
-        System.out.println(nfa);
-
-
-        // Apply Subset Construction
-        FiniteAutomaton dfa = SubsetConstruction.apply(nfa);
-        System.out.println(dfa);
     }
 }
