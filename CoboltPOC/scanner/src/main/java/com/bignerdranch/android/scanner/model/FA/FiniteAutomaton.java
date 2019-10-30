@@ -151,16 +151,20 @@ public class FiniteAutomaton {
     }
 
     private List<Path> generatePathList() {
+        for(State s : stateTransitionMap.keySet()) {
+            s.setMarked(false);
+        }
         explorePaths(startingState, "");
         return pathList;
     }
 
     private void explorePaths(State currentState, String currentString) {
         List<Transition> transitions = this.getOutTransitionsFromState(currentState);
-        if(transitions.isEmpty()) {
+        if(currentState.isMarked() || transitions.isEmpty()) {
             pathList.add(new Path(currentString));
             return;
         }
+        currentState.setMarked(true);
         for ( Transition t: transitions) {
             explorePaths(t.getOutState(), currentString + t.getCharacter());
         }

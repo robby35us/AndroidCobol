@@ -25,7 +25,7 @@ public class ScannerGenerator {
         populatePatterns(sourceFile);
 
         // Apply Thompson's Construction
-        FiniteAutomaton nfa = ThompsonsConstruction.apply(patterns);
+        FiniteAutomaton nfa = new ThompsonsConstruction().apply(patterns);
         patterns = null;
         System.out.println(nfa);
 

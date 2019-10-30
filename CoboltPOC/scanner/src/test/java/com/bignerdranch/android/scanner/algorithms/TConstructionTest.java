@@ -26,7 +26,7 @@ public class TConstructionTest {
 
     @Test
     public void testEmpty() {
-        expectedNFA = ThompsonsConstruction.apply(regexSet);
+        expectedNFA = new ThompsonsConstruction().apply(regexSet);
 
         Assert.assertEquals(comparisonNFA, expectedNFA);
     }
@@ -34,7 +34,7 @@ public class TConstructionTest {
     @Test
     public void testSingleNode() {
         regexSet.add(new RE("a"));
-        expectedNFA = ThompsonsConstruction.apply(regexSet);
+        expectedNFA = new ThompsonsConstruction().apply(regexSet);
 
         Transition t = new Transition('a',
                 comparisonNFA.getStartingState(), new State(false));
