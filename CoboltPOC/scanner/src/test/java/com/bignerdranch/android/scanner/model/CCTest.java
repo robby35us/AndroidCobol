@@ -57,11 +57,6 @@ public class CCTest {
         assert (cc == CobolCharacter.LOWER);
     }
 
-    @Test
-    public void charSpaceIsSpace() {
-        CobolCharacter cc = CobolCharacter.matchCobolCharacter(' ');
-        assert (cc == CobolCharacter.SPACE);
-    }
 
     @Test
     public void charPlusIsPlus() {

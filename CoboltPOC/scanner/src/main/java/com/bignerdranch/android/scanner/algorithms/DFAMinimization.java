@@ -53,7 +53,7 @@ public class DFAMinimization {
 
 
     private static Set<Partition> split(Partition p) {
-        Set<Partition> splitOnC = null;
+        Set<Partition> splitOnC;
         for(char c : CobolCharacter.getCobolCharacterList()) {
             splitOnC = getSplitOnChar(c, p);
             if(splitOnC.size() > 1) {
@@ -129,7 +129,7 @@ public class DFAMinimization {
         List<Transition> newTransitions = new ArrayList<>();
         for (Partition p : finalPSet) {
             Set<Character> chars = new HashSet<>();
-            List<Transition> oldTransitions = null;
+            List<Transition> oldTransitions = new ArrayList<>();
             for (State s : p.getStates()) {
                 oldTransitions = dfa.getOutTransitionsFromState(s);
                 for (Transition t : oldTransitions) {

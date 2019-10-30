@@ -21,6 +21,10 @@ public class RE implements Comparable<RE> {
             return '\n';
     }
 
+    public boolean hasNextChar() {
+        return position < pattern.pattern().length();
+    }
+
     @Override
     public int compareTo(RE re) {
         return pattern.toString().compareTo(re.toString());

@@ -8,17 +8,16 @@ import com.bignerdranch.android.scanner.model.RE;
 import java.util.List;
 
 public class TConstructionUtil {
-    private State startingState;
     private State currentState;
     private FiniteAutomaton nfa;
 
-    public TConstructionUtil() {
-        startingState = new State(false);
+    TConstructionUtil() {
+        State startingState = new State(false);
         currentState = startingState;
         nfa = new FiniteAutomaton(startingState);
     }
 
-    public FiniteAutomaton buildSimpleNFA(RE regex) {
+    FiniteAutomaton buildSimpleNFA(RE regex) {
         char character = regex.getNextChar();
         State tempState;
         while (character != '\n'){
@@ -36,26 +35,7 @@ public class TConstructionUtil {
         return nfa;
     }
 
-    public FiniteAutomaton applyOrToNFA(List<FiniteAutomaton> nfas) {
-        State resultStartingState = new State(false);
-        State resultAcceptingState = new State(true);
 
-        FiniteAutomaton resultFA = new FiniteAutomaton(resultStartingState);
-
-        for(FiniteAutomaton nfa : nfas) {
-            resultFA.addTransition(new Transition('~',
-                    resultStartingState,
-                    nfa.getStartingState()));
-            for (State as : nfa.getAcceptingStates()) {
-                resultFA.addTransition(new Transition('~', as,
-                        resultAcceptingState));
-                as.setAcceptingState(false);
-            }
-            resultFA.addTransitions(nfa.getTransitions());
-        }
-        resultFA.updateAcceptingStates();
-        return resultFA;
-    }
 
     public FiniteAutomaton applyAndToNFA(FiniteAutomaton nfa1,
                                          FiniteAutomaton nfa2) {

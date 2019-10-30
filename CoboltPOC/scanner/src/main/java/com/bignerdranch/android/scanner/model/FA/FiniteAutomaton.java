@@ -14,10 +14,10 @@ public class FiniteAutomaton {
     private List<Transition> transitions;
     private State startingState;
     private Set<State> acceptingStates;
+    private List<Path> pathList;
 
     public FiniteAutomaton (State startingState) {
-        //System.out.println("FiniteAutomaton");
-
+        pathList = new ArrayList<>();
         this.stateTransitionMap = new HashMap<>();
         this.transitions = new ArrayList<>();
         this.startingState = startingState;
@@ -38,8 +38,6 @@ public class FiniteAutomaton {
         for (Transition t : transitions) {
             putState(t.getInState(), t);
             putState(t.getOutState(), null);
-            t.getInState().setAcceptingState(false);
-            t.getOutState().setAcceptingState(false);
             this.transitions.add(t);
         }
     }
@@ -143,4 +141,29 @@ public class FiniteAutomaton {
         }
         return stringBuilder.toString();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        return o instanceof FiniteAutomaton
+                //&& this.acceptingStates.equals(((FiniteAutomaton) o).acceptingStates)
+                //&& this.getNonAcceptingStates().equals(((FiniteAutomaton) o).getNonAcceptingStates())
+                && this.generatePathList().equals(((FiniteAutomaton )o).generatePathList());
+    }
+
+    private List<Path> generatePathList() {
+        explorePaths(startingState, "");
+        return pathList;
+    }
+
+    private void explorePaths(State currentState, String currentString) {
+        List<Transition> transitions = this.getOutTransitionsFromState(currentState);
+        if(transitions.isEmpty()) {
+            pathList.add(new Path(currentString));
+            return;
+        }
+        for ( Transition t: transitions) {
+            explorePaths(t.getOutState(), currentString + t.getCharacter());
+        }
+    }
+
 }

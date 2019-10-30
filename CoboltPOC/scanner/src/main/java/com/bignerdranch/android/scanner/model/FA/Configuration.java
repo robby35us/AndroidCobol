@@ -1,6 +1,5 @@
 package com.bignerdranch.android.scanner.model.FA;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Configuration {
